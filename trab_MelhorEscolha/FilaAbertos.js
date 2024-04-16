@@ -1,0 +1,41 @@
+export default class FilaAbertos{
+    elementos = [];
+
+    adicionar(rastreador){
+        this.elementos.push(rastreador);
+        this.ordenaFila();
+    }
+
+    ordenaFila(){
+        this.elementos.sort((a,b) => {
+            if(a.retornaCustoTotal() < b.retornaCustoTotal()){
+                return -1;
+            }else if(a.retornaCustoTotal() > b.retornaCustoTotal()){
+                return 1;
+            }
+            return 0;
+        });
+    }
+
+    retiraPrimeiro(){
+        return this.elementos.shift();
+    }
+
+    buscaRastreador(vertice){
+        let rastreadorEncontrado = null;
+
+        this.elementos.forEach(rastreador => {
+            if(rastreador.vertice == vertice){
+                rastreadorEncontrado = rastreador;
+            }
+        })
+
+        return rastreadorEncontrado;
+    }
+
+    substituirRastreador(rastreadorAntigo,rastreadorNovo){
+        let indiceAntigo = this.elementos.indexOf(rastreadorAntigo);
+        this.elementos[indiceAntigo] = rastreadorNovo;
+        this.ordenaFila();
+    }
+}
